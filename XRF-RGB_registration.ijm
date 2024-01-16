@@ -46,7 +46,8 @@ macro "Register XRF and RGB Images" {
   
 // Close all opened images and the ROI manager
   while (nImages>0) { 
-    selectImage(nImages); 
+    selectImage(nImages);
+    setOption("Changes",false);
     close(); 
   } 
     close("ROI Manager");
