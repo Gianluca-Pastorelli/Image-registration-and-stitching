@@ -20,7 +20,7 @@ macro "Register XRF and RGB Images" {
 
 // Select corresponding points on the XRF image and add them to ROI
   selectWindow(XRF_Image)
-  waitForUser("Select the corresponding points in the same order on the XRF image");
+  waitForUser("Select the corresponding points in the same order on the XRF image (zoom in if needed)");
   run("ROI Manager...");
   roiManager("Add");
 
@@ -35,6 +35,7 @@ macro "Register XRF and RGB Images" {
     
     // Select the previously added ROI
     roiManager("Select", 0);
+    setOption("Changes",false); // resets the 'changes' flag of the current image
     
     // Use the `Transform -> Landmark Correspondence` plugin (to resample images, add interpolate after Affine)
     run("Landmark Correspondences", "source_image=XRF_Image template_image=RGB_Image transformation_method=[Least Squares] alpha=1 mesh_resolution=32 transformation_class=Affine");
@@ -47,7 +48,6 @@ macro "Register XRF and RGB Images" {
 // Close all opened images and the ROI manager
   while (nImages>0) { 
     selectImage(nImages);
-    setOption("Changes",false);
     close(); 
   } 
     close("ROI Manager");
