@@ -36,6 +36,7 @@ macro "Register XRF and RGB Images" {
     // Select the previously added ROI
     roiManager("Select", 0);
     setOption("Changes",false); // resets the 'changes' flag of the current image
+    saveAs("tiff", dir + files[i]); // explicitly instruct ImageJ to save the image without any changes
     
     // Use the `Transform -> Landmark Correspondence` plugin (to resample images, add interpolate after Affine)
     run("Landmark Correspondences", "source_image=XRF_Image template_image=RGB_Image transformation_method=[Least Squares] alpha=1 mesh_resolution=32 transformation_class=Affine");
@@ -43,6 +44,7 @@ macro "Register XRF and RGB Images" {
   	// Save the transformed image in the "Registered" folder
   	title = getTitle();
   	saveAs("tiff", NewFolder+title);
+  	close();
   }
   
 // Close all opened images and the ROI manager
